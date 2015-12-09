@@ -45,6 +45,11 @@ namespace Script
 		myState->RegisterFunction(aName, aFunction, aDescription);
 	}
 
+	void LuaManager::CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns)
+	{
+		myState->CallFunction(aName, aNumberOfArgs, aNumberOfReturns);
+	}
+
 	LuaManager::LuaManager()
 	{
 		myState = nullptr;

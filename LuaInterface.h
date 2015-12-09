@@ -29,6 +29,7 @@ namespace Script
 		void Update();
 		void UseFile(const std::string& aFilePath);
 		void RegisterFunction(const std::string& aName, const lua_CFunction& aFunction, const std::string& aDescription);
+		void CallFunction(const std::string& aName, int aNumberOfArgs, int aNumberOfReturns);
 
 		static std::ofstream ourDebugLog;
 	private:
