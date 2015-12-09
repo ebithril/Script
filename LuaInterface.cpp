@@ -42,6 +42,11 @@ namespace Script
 		myLuaManager->CallFunction(aName.c_str(), aNumberOfArgs, aNumberOfReturns);
 	}
 
+	void LuaInterface::CallString(const std::string& aString)
+	{
+		myLuaManager->CallString(aString.c_str());
+	}
+
 	LuaInterface::LuaInterface()
 	{
 		myLuaManager = new LuaManager();

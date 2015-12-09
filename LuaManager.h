@@ -25,10 +25,11 @@ namespace Script
 		void UseFile(const char* aFilePath);
 		void RegisterFunction(const char* aName, const lua_CFunction& aFunction, const char* aDescription);
 		void CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns);
+		void CallString(const char * aString);
+
 	private:
 		LuaManager();
 		~LuaManager();
-
 		LuaState* myState;
 	};
 }

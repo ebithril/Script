@@ -20,6 +20,7 @@ namespace Script
 		void CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns);
 		void RegisterFunction(const char* aName, const lua_CFunction& aFunction, const char* aDescription);
 		void UseFile(const char* aFilePath);
+		void CallString(const char* aString);
 	private:
 		bool CheckError(int aResult);
 		void FindClosest(int aError);

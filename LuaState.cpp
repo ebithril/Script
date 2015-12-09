@@ -118,6 +118,11 @@ namespace Script
 		lua_gc(myState, LUA_GCCOLLECT, 0);
 	}
 
+	void LuaState::CallString(const char* aString)
+	{
+		CheckError(luaL_dostring(myState, aString));
+	}
+
 	bool LuaState::CheckError(int aResult)
 	{
 		if (aResult != LUA_OK)

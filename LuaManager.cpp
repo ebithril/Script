@@ -59,4 +59,9 @@ namespace Script
 	{
 		delete myState;
 	}
+
+	void LuaManager::CallString(const char * aString)
+	{
+		myState->CallString(aString);
+	}
 }

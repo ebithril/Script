@@ -31,6 +31,8 @@ namespace Script
 		void RegisterFunction(const std::string& aName, const lua_CFunction& aFunction, const std::string& aDescription);
 		void CallFunction(const std::string& aName, int aNumberOfArgs, int aNumberOfReturns);
 
+		void CallString(const std::string& aString);
+
 		static std::ofstream ourDebugLog;
 	private:
 		LuaInterface();
