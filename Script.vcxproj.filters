@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Script">
+      <UniqueIdentifier>{c460de17-4f7d-40d0-a6a9-30a68370ad07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FileWatcher">
+      <UniqueIdentifier>{185c0a15-1759-44ef-bd04-712d967fdc5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\State">
+      <UniqueIdentifier>{ccd912b0-5e34-4766-8347-784701b55e0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Manager">
+      <UniqueIdentifier>{d5c1444a-3b9a-4a94-9fbb-4ad51ebdfa20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Interface">
+      <UniqueIdentifier>{685a33c6-f9dc-47e3-906a-59730402bdf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Functions">
+      <UniqueIdentifier>{330959ce-f641-4817-9852-20afa235e9e5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="file_watcher.h">
+      <Filter>FileWatcher</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaState.h">
+      <Filter>Script\State</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaManager.h">
+      <Filter>Script\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaInterface.h">
+      <Filter>Script\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptFunctions.h">
+      <Filter>Script\Functions</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="file_watcher.cpp">
+      <Filter>FileWatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaState.cpp">
+      <Filter>Script\State</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaManager.cpp">
+      <Filter>Script\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaInterface.cpp">
+      <Filter>Script\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptFunctions.cpp">
+      <Filter>Script\Functions</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
