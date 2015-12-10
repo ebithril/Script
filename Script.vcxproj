@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_watcher.h" />
+    <ClInclude Include="FunctionInformation.h" />
     <ClInclude Include="LuaInterface.h" />
     <ClInclude Include="LuaManager.h" />
     <ClInclude Include="LuaState.h" />

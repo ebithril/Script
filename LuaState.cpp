@@ -80,7 +80,16 @@ namespace Script
 
 		myFile << "------------------------------\n" << "- Name: " << aName << "\n- Description: " << aDescription << "\n------------------------------" << std::endl;
 
-		myExposedFunctions[aName] = aFunction;
+		LuaFunction func;
+		func.myFunction = aFunction;
+
+		FunctionInformation information;
+		information.myName = aName;
+		information.myDescription = aDescription;
+
+		func.myInformation = information;
+
+		myExposedFunctions[aName] = func;
 	}
 
 	void LuaState::UseFile(const char* aFilePath)
@@ -120,7 +129,26 @@ namespace Script
 
 	void LuaState::CallString(const char* aString)
 	{
-		CheckError(luaL_dostring(myState, aString));
+		if (CheckError(luaL_loadstring(myState, aString)) == true)
+		{
+			PrintLog("The command cannot be done");
+		}
+		else if (CheckError(lua_pcall(myState, 0, LUA_MULTRET, 0)) == true)
+		{
+			PrintLog("The command cannot be done");
+		}
+	}
+
+	std::vector<FunctionInformation> LuaState::GetFunctionInfo()
+	{
+		std::vector<FunctionInformation> functionInfo;
+
+		for (auto it = myExposedFunctions.begin(); it != myExposedFunctions.end(); it++)
+		{
+			functionInfo.push_back(it->second.myInformation);
+		}
+
+		return functionInfo;
 	}
 
 	bool LuaState::CheckError(int aResult)
@@ -286,7 +314,7 @@ namespace Script
 
 		while (exposedFunctions != myExposedFunctions.end())
 		{
-			lua_register(myState, exposedFunctions->first.c_str(), exposedFunctions->second);
+			lua_register(myState, exposedFunctions->first.c_str(), exposedFunctions->second.myFunction);
 			exposedFunctions++;
 		}
 	}

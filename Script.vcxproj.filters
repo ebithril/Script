@@ -33,6 +33,9 @@
     <ClInclude Include="ScriptFunctions.h">
       <Filter>ScriptFunctions</Filter>
     </ClInclude>
+    <ClInclude Include="FunctionInformation.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="file_watcher">

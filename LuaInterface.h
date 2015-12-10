@@ -2,6 +2,8 @@
 
 #include <functional>
 #include <fstream>
+#include <vector>
+#include "FunctionInformation.h"
 
 struct lua_State;
 
@@ -32,6 +34,8 @@ namespace Script
 		void CallFunction(const std::string& aName, int aNumberOfArgs, int aNumberOfReturns);
 
 		void CallString(const std::string& aString);
+
+		std::vector<FunctionInformation> GetFunctionInfo();
 
 		static std::ofstream ourDebugLog;
 	private:

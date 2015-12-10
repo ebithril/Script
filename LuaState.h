@@ -1,11 +1,20 @@
 #pragma once
 
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <fstream>
+#include <vector>
 
 struct lua_State;
 typedef int(*lua_CFunction) (lua_State *L);
+
+#include "FunctionInformation.h"
+
+struct LuaFunction
+{
+	FunctionInformation myInformation;
+	lua_CFunction myFunction;
+};
 
 namespace Script
 {
@@ -21,6 +30,7 @@ namespace Script
 		void RegisterFunction(const char* aName, const lua_CFunction& aFunction, const char* aDescription);
 		void UseFile(const char* aFilePath);
 		void CallString(const char* aString);
+		std::vector<FunctionInformation> GetFunctionInfo();
 	private:
 		bool CheckError(int aResult);
 		void FindClosest(int aError);
@@ -31,7 +41,7 @@ namespace Script
 		void Reload();
 
 		std::string myFilePath;
-		std::map<std::string, lua_CFunction> myExposedFunctions;
+		std::unordered_map<std::string, LuaFunction> myExposedFunctions;
 		std::ofstream myFile;
 		lua_State* myState;
 		bool myIsLoaded;

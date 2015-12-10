@@ -1,5 +1,8 @@
 #pragma once
 
+#include <vector>
+#include "FunctionInformation.h"
+
 struct lua_State;
 
 namespace std
@@ -26,6 +29,8 @@ namespace Script
 		void RegisterFunction(const char* aName, const lua_CFunction& aFunction, const char* aDescription);
 		void CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns);
 		void CallString(const char * aString);
+
+		std::vector<FunctionInformation> GetFunctionInfo();
 
 	private:
 		LuaManager();
