@@ -27,5 +27,9 @@
 *.out
 *.app
 
+#Visual studio folders
 Debug/
 Release/
+
+#User specific files
+Script.vcxproj.user
