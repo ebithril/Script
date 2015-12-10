@@ -25,7 +25,10 @@ namespace Script
 
 		myState->RegisterFunction("Print", logFunction, "Print a message to the log");
 
-		aFunction();
+		if (aFunction != nullptr)
+		{
+			aFunction();
+		}
 	}
 
 	void LuaManager::Update()

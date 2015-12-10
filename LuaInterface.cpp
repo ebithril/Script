@@ -3,6 +3,8 @@
 #include <assert.h>
 #include "LuaManager.h"
 
+#include "ScriptFunctions.h"
+
 namespace Script
 {
 	LuaInterface* LuaInterface::ourInstance = nullptr;
@@ -17,6 +19,8 @@ namespace Script
 		if (ourRefCount <= 0)
 		{
 			delete ourInstance;
+
+			ourDebugLog.close();
 
 			ourInstance = nullptr;
 		}
@@ -68,7 +72,11 @@ namespace Script
 	{
 		if (LuaInterface::ourRefCount == 0)
 		{
-			assert(LuaInterface::ourInitFunction != nullptr && "Cannot create luainterface since no registerfunction is set");
+			//assert(LuaInterface::ourInitFunction != nullptr && "Cannot create luainterface since no registerfunction is set");
+			
+			LuaInterface::ourDebugLog.open("../scripts/scriptLog.txt");
+
+			PrintLog("created system");
 
 			LuaInterface::ourInstance = new LuaInterface();
 		}
