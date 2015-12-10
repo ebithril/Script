@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A6FB7F50-2D80-4680-AA4D-2B20DB680190}</ProjectGuid>
+    <ProjectGuid>{089B9067-3B86-4029-B5CD-017491A0D007}</ProjectGuid>
     <RootNamespace>Script</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -40,9 +40,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>../include;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\VSOutput\Libraries\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\VSOutput\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>../include;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\VSOutput\Libraries\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\VSOutput\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
