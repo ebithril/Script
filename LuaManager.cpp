@@ -64,4 +64,9 @@ namespace Script
 	{
 		myState->CallString(aString);
 	}
+
+	std::vector<FunctionInformation> LuaManager::GetFunctionInfo()
+	{
+		return myState->GetFunctionInfo();
+	}
 }

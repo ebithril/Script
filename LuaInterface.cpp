@@ -47,6 +47,11 @@ namespace Script
 		myLuaManager->CallString(aString.c_str());
 	}
 
+	std::vector<FunctionInformation> LuaInterface::GetFunctionInfo()
+	{
+		return myLuaManager->GetFunctionInfo();
+	}
+
 	LuaInterface::LuaInterface()
 	{
 		myLuaManager = new LuaManager();
