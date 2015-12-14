@@ -5,6 +5,8 @@
 
 struct lua_State;
 
+class LuaArguments;
+
 namespace std
 {
 	template <typename Type>
@@ -27,7 +29,7 @@ namespace Script
 		void Update();
 		void UseFile(const char* aFilePath);
 		void RegisterFunction(const char* aName, const lua_CFunction& aFunction, const char* aDescription);
-		void CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns);
+		void CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns, LuaArguments& someArguments);
 		void CallString(const char * aString);
 
 		std::vector<FunctionInformation> GetFunctionInfo();

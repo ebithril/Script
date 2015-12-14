@@ -84,6 +84,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="file_watcher.cpp" />
+    <ClCompile Include="LuaArgument.cpp" />
+    <ClCompile Include="LuaArguments.cpp" />
     <ClCompile Include="LuaInterface.cpp" />
     <ClCompile Include="LuaManager.cpp" />
     <ClCompile Include="LuaState.cpp" />
@@ -92,6 +94,8 @@
   <ItemGroup>
     <ClInclude Include="file_watcher.h" />
     <ClInclude Include="FunctionInformation.h" />
+    <ClInclude Include="LuaArgument.h" />
+    <ClInclude Include="LuaArguments.h" />
     <ClInclude Include="LuaInterface.h" />
     <ClInclude Include="LuaManager.h" />
     <ClInclude Include="LuaState.h" />

@@ -19,16 +19,16 @@ namespace Script
 			string += lua_tostring(aState, i);
 		}
 
-		return PrintLog(string.c_str());
+		LuaInterface::Print(string);
+
+		return 0;
 	}
 
-	int PrintLog(const char* aStringToPrint)
+	void PrintLog(const std::string& aStringToPrint)
 	{
 		std::cout << aStringToPrint << std::endl;
 
-		OutputDebugStringA(aStringToPrint);
+		OutputDebugStringA(aStringToPrint.c_str());
 		LuaInterface::ourDebugLog << aStringToPrint << std::endl;
-
-		return 0;
 	}
 }

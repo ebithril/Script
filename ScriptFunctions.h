@@ -1,9 +1,11 @@
 #pragma once
 
+#include <string>
+
 struct lua_State;
 
 namespace Script
 {
 	int PrintLog(lua_State* aState);
-	int PrintLog(const char* aStringToPrint);
+	void PrintLog(const std::string& aStringToPrint);
 }

@@ -11,6 +11,7 @@ namespace Script
 	int LuaInterface::ourRefCount = 0;
 	std::function<void()> LuaInterface::ourInitFunction = nullptr;
 	std::ofstream LuaInterface::ourDebugLog("../scripts/scriptLog.txt");
+	std::function<void(const std::string&)> LuaInterface::ourPrintFunction = nullptr;
 
 	void LuaInterface::Release()
 	{
@@ -41,9 +42,9 @@ namespace Script
 		myLuaManager->RegisterFunction(aName.c_str(), aFunction, aDescription.c_str());
 	}
 
-	void LuaInterface::CallFunction(const std::string& aName, int aNumberOfArgs, int aNumberOfReturns)
+	void LuaInterface::CallFunction(const std::string& aName, int aNumberOfArgs, int aNumberOfReturns, LuaArguments& someArguments)
 	{
-		myLuaManager->CallFunction(aName.c_str(), aNumberOfArgs, aNumberOfReturns);
+		myLuaManager->CallFunction(aName.c_str(), aNumberOfArgs, aNumberOfReturns, someArguments);
 	}
 
 	void LuaInterface::CallString(const std::string& aString)
@@ -54,6 +55,11 @@ namespace Script
 	std::vector<FunctionInformation> LuaInterface::GetFunctionInfo()
 	{
 		return myLuaManager->GetFunctionInfo();
+	}
+
+	void LuaInterface::SetPrintFunction(std::function<void(const std::string&)> aPrintFunction)
+	{
+		ourPrintFunction = aPrintFunction;
 	}
 
 	LuaInterface::LuaInterface()
@@ -68,6 +74,11 @@ namespace Script
 		delete myLuaManager;
 	}
 
+	void LuaInterface::Print(const std::string& aString)
+	{
+		ourPrintFunction(aString);
+	}
+
 	LuaInterface* CreateLuaInterface()
 	{
 		if (LuaInterface::ourRefCount == 0)
@@ -76,7 +87,12 @@ namespace Script
 			
 			LuaInterface::ourDebugLog.open("../scripts/scriptLog.txt");
 
-			PrintLog("created system");
+			if (LuaInterface::ourPrintFunction == nullptr)
+			{
+				LuaInterface::ourPrintFunction = [](const std::string& aString){ PrintLog(aString); };
+			}
+
+			LuaInterface::Print("created system");
 
 			LuaInterface::ourInstance = new LuaInterface();
 		}
