@@ -1,5 +1,6 @@
 #include "LuaState.h"
 
+#include <Windows.h>
 #include "ScriptFunctions.h"
 #include "file_watcher.h"
 
@@ -9,8 +10,11 @@
 #include <functional>
 
 #include <numeric>
-#include <Windows.h>
 #include <algorithm>
+
+#include "LuaInterface.h"
+#include "LuaArguments.h"
+
 
 namespace Script
 {
@@ -43,11 +47,11 @@ namespace Script
 		return lua_type(myState, GetNumberOfArguments());
 	}
 
-	void LuaState::CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns)
+	void LuaState::CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns, LuaArguments& someArguments)
 	{
 		if (myIsLoaded == false)
 		{
-			PrintLog("No file loaded trying to reload.");
+			LuaInterface::Print("No file loaded trying to reload.");
 			UseFile(myFilePath.c_str());
 
 			if (myIsLoaded == false)
@@ -65,11 +69,13 @@ namespace Script
 			errorMsg += lua_typename(myState, type);
 			errorMsg += " and not a function please fix this or talk to programmer.";
 
-			PrintLog(errorMsg.c_str());
+			LuaInterface::Print(errorMsg.c_str());
 			lua_pop(myState, 1);
 
 			return;
 		}
+
+		someArguments.PushArguments(myState, aNumberOfArgs);
 
 		CheckError(lua_pcall(myState, aNumberOfArgs, aNumberOfReturns, 0));
 	}
@@ -105,12 +111,12 @@ namespace Script
 
 		if (CheckError(luaL_loadfile(myState, aFilePath)) == true)
 		{
-			PrintLog("Error in loading file look at error message above. \n");
+			LuaInterface::Print("Error in loading file look at error message above. \n");
 			myIsLoaded = false;
 		}
 		else if (CheckError(lua_pcall(myState, 0, LUA_MULTRET, 0)) == true)
 		{
-			PrintLog("Error in loading file look at error message above. \n");
+			LuaInterface::Print("Error in loading file look at error message above. \n");
 			myIsLoaded = false;
 		}
 		else
@@ -131,11 +137,11 @@ namespace Script
 	{
 		if (CheckError(luaL_loadstring(myState, aString)) == true)
 		{
-			PrintLog("The command cannot be done");
+			LuaInterface::Print("The command cannot be done");
 		}
 		else if (CheckError(lua_pcall(myState, 0, LUA_MULTRET, 0)) == true)
 		{
-			PrintLog("The command cannot be done");
+			LuaInterface::Print("The command cannot be done");
 		}
 	}
 
@@ -185,10 +191,11 @@ namespace Script
 			luaError += GetNiceErrorMessage(lua_tostring(myState, GetNumberOfArguments()));
 			luaError += '\n';
 
-			PrintLog(luaError.c_str());
+			LuaInterface::Print(luaError.c_str());
 
 			return true;
 		}
+		return false;
 	}
 
 	void LuaState::FindClosest(int aError)
@@ -200,7 +207,7 @@ namespace Script
 			if (errorMsg.find("global") == std::string::npos)
 			{
 				errorMsg = GetNiceErrorMessage(errorMsg);
-				PrintLog(errorMsg.c_str());
+				LuaInterface::Print(errorMsg.c_str());
 				return;
 			}
 
@@ -230,7 +237,7 @@ namespace Script
 			errorMsg += " \'";
 			errorMsg += functionBeingCalled + "\' doesn't exist did you mean \'" + example + "\'?";
 
-			PrintLog(errorMsg.c_str());
+			LuaInterface::Print(errorMsg.c_str());
 		}
 		else
 		{

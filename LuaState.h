@@ -5,10 +5,13 @@
 #include <fstream>
 #include <vector>
 
+#include "FunctionInformation.h"
+
 struct lua_State;
 typedef int(*lua_CFunction) (lua_State *L);
 
-#include "FunctionInformation.h"
+
+class LuaArguments;
 
 struct LuaFunction
 {
@@ -26,7 +29,7 @@ namespace Script
 
 		int GetNumberOfArguments();
 		int GetType();
-		void CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns);
+		void CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns, LuaArguments& someArguments); /* 5 max number of arguments */
 		void RegisterFunction(const char* aName, const lua_CFunction& aFunction, const char* aDescription);
 		void UseFile(const char* aFilePath);
 		void CallString(const char* aString);

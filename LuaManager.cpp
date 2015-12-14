@@ -14,6 +14,8 @@
 #include "ScriptFunctions.h"
 #include <iostream>
 
+#include "LuaArguments.h"
+
 namespace Script
 {
 	void LuaManager::Init(const std::function<void()>& aFunction)
@@ -35,7 +37,7 @@ namespace Script
 	{
 		CFileWatcher::GetInstance()->FlushChanges();
 
-		myState->CallFunction("Update", 0, 0);
+		myState->CallFunction("Update", 0, 0, LuaArguments());
 	}
 
 	void LuaManager::UseFile(const char* aFilePath)
@@ -48,9 +50,9 @@ namespace Script
 		myState->RegisterFunction(aName, aFunction, aDescription);
 	}
 
-	void LuaManager::CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns)
+	void LuaManager::CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns, LuaArguments& someArguments)
 	{
-		myState->CallFunction(aName, aNumberOfArgs, aNumberOfReturns);
+		myState->CallFunction(aName, aNumberOfArgs, aNumberOfReturns, someArguments);
 	}
 
 	LuaManager::LuaManager()

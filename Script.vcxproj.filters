@@ -16,6 +16,10 @@
     <ClCompile Include="ScriptFunctions.cpp">
       <Filter>ScriptFunctions</Filter>
     </ClCompile>
+    <ClCompile Include="LuaArgument.cpp">
+      <Filter>Lua\LuaArgument</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaArguments.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_watcher.h">
@@ -36,6 +40,10 @@
     <ClInclude Include="FunctionInformation.h">
       <Filter>Lua</Filter>
     </ClInclude>
+    <ClInclude Include="LuaArgument.h">
+      <Filter>Lua\LuaArgument</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaArguments.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="file_watcher">
@@ -55,6 +63,9 @@
     </Filter>
     <Filter Include="Lua\LuaInterface">
       <UniqueIdentifier>{577a3a78-f371-47e1-b377-b86b55d99c15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\LuaArgument">
+      <UniqueIdentifier>{92d14ca8-228b-4a40-b335-676ebd523274}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
