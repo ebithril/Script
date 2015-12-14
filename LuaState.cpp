@@ -14,12 +14,14 @@
 
 #include "LuaInterface.h"
 #include "LuaArguments.h"
-
+#include "LuaManager.h"
 
 namespace Script
 {
-	LuaState::LuaState()
+	LuaState::LuaState(LuaManager* aManager)
 	{
+		myManager = aManager;
+
 		myFilePath = "";
 		myIsLoaded = false;
 
@@ -27,14 +29,11 @@ namespace Script
 
 		luaL_openlibs(myState);
 
-		myFile.open("../scripts/exposedfunctions.txt");
-
 		assert(myState != nullptr && "Was not able to create lua state");
 	}
 
 	LuaState::~LuaState()
 	{
-		myFile.close();
 	}
 
 	int LuaState::GetNumberOfArguments()
@@ -80,22 +79,9 @@ namespace Script
 		CheckError(lua_pcall(myState, aNumberOfArgs, aNumberOfReturns, 0));
 	}
 
-	void LuaState::RegisterFunction(const char* aName, const lua_CFunction& aFunction, const char* aDescription)
+	void LuaState::RegisterFunction(const char* aName, const lua_CFunction& aFunction)
 	{
 		lua_register(myState, aName, aFunction);
-
-		myFile << "------------------------------\n" << "- Name: " << aName << "\n- Description: " << aDescription << "\n------------------------------" << std::endl;
-
-		LuaFunction func;
-		func.myFunction = aFunction;
-
-		FunctionInformation information;
-		information.myName = aName;
-		information.myDescription = aDescription;
-
-		func.myInformation = information;
-
-		myExposedFunctions[aName] = func;
 	}
 
 	void LuaState::UseFile(const char* aFilePath)
@@ -145,18 +131,6 @@ namespace Script
 		}
 	}
 
-	std::vector<FunctionInformation> LuaState::GetFunctionInfo()
-	{
-		std::vector<FunctionInformation> functionInfo;
-
-		for (auto it = myExposedFunctions.begin(); it != myExposedFunctions.end(); it++)
-		{
-			functionInfo.push_back(it->second.myInformation);
-		}
-
-		return functionInfo;
-	}
-
 	bool LuaState::CheckError(int aResult)
 	{
 		if (aResult != LUA_OK)
@@ -169,7 +143,7 @@ namespace Script
 				return false;
 				break;
 			case LUA_ERRRUN:
-				FindClosest(aResult);
+				myManager->FindClosest(lua_tostring(myState, GetNumberOfArguments()));
 				return true;
 				break;
 			case LUA_ERRSYNTAX:
@@ -196,53 +170,6 @@ namespace Script
 			return true;
 		}
 		return false;
-	}
-
-	void LuaState::FindClosest(int aError)
-	{
-		if (aError == LUA_ERRRUN)
-		{
-			std::string errorMsg = lua_tostring(myState, GetNumberOfArguments());
-			
-			if (errorMsg.find("global") == std::string::npos)
-			{
-				errorMsg = GetNiceErrorMessage(errorMsg);
-				LuaInterface::Print(errorMsg.c_str());
-				return;
-			}
-
-			int firstIndex = errorMsg.find_first_of('\'');
-			int secondIndex = errorMsg.find_first_of('\'', firstIndex + 1);
-
-			std::string functionBeingCalled = errorMsg.substr(firstIndex + 1, secondIndex - firstIndex - 1);
-
-			int closest = INT_MAX;
-			std::string example = "";
-
-			auto exposedFunction = myExposedFunctions.begin();
-
-			while (exposedFunction != myExposedFunctions.end())
-			{
-				int dist = levenshtein_distance(functionBeingCalled, exposedFunction->first);
-
-				if (dist < closest)
-				{
-					example = exposedFunction->first;
-					closest = dist;
-				}
-				exposedFunction++;
-			}
-
-			errorMsg = GetFileAndLine(errorMsg);
-			errorMsg += " \'";
-			errorMsg += functionBeingCalled + "\' doesn't exist did you mean \'" + example + "\'?";
-
-			LuaInterface::Print(errorMsg.c_str());
-		}
-		else
-		{
-			assert(false && "No error detected but the function doesn't seem to exist, talk to programmer if this happens.");
-		}
 	}
 
 	std::string LuaState::GetNiceErrorMessage(const std::string& aLuaError)
@@ -278,51 +205,12 @@ namespace Script
 		return output;
 	}
 
-#undef min
-	int LuaState::levenshtein_distance(const std::string &s1, const std::string &s2)
-	{
-		// To change the type this function manipulates and returns, change
-		// the return type and the types of the two variables below.
-		int s1len = s1.size();
-		int s2len = s2.size();
-
-		auto column_start = (decltype(s1len))1;
-
-		auto column = new decltype(s1len)[s1len + 1];
-		std::iota(column + column_start, column + s1len + 1, column_start);
-
-		for (auto x = column_start; x <= s2len; x++) {
-			column[0] = x;
-			auto last_diagonal = x - column_start;
-			for (auto y = column_start; y <= s1len; y++) {
-				auto old_diagonal = column[y];
-				auto possibilities = {
-					column[y] + 1,
-					column[y - 1] + 1,
-					last_diagonal + (s1[y - 1] == s2[x - 1] ? 0 : 1)
-				};
-				column[y] = std::min(possibilities);
-				last_diagonal = old_diagonal;
-			}
-		}
-
-		auto result = column[s1len];
-		delete[] column;
-		return result;
-	}
-
 	void LuaState::Reload()
 	{
 		lua_close(myState);
 
 		myState = luaL_newstate();
 
-		auto exposedFunctions = myExposedFunctions.begin();
-
-		while (exposedFunctions != myExposedFunctions.end())
-		{
-			lua_register(myState, exposedFunctions->first.c_str(), exposedFunctions->second.myFunction);
-			exposedFunctions++;
-		}
+		myManager->ReloadState(this);
 	}
 }

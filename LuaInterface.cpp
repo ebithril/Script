@@ -32,24 +32,14 @@ namespace Script
 		myLuaManager->Update();
 	}
 
-	void LuaInterface::UseFile(const std::string& aFilePath)
-	{
-		myLuaManager->UseFile(aFilePath.c_str());
-	}
-
 	void LuaInterface::RegisterFunction(const std::string& aName, const lua_CFunction& aFunction, const std::string& aDescription)
 	{
 		myLuaManager->RegisterFunction(aName.c_str(), aFunction, aDescription.c_str());
 	}
 
-	void LuaInterface::CallFunction(const std::string& aName, int aNumberOfArgs, int aNumberOfReturns, LuaArguments& someArguments)
+	std::shared_ptr<LuaState> LuaInterface::CreateLuaState()
 	{
-		myLuaManager->CallFunction(aName.c_str(), aNumberOfArgs, aNumberOfReturns, someArguments);
-	}
-
-	void LuaInterface::CallString(const std::string& aString)
-	{
-		myLuaManager->CallString(aString.c_str());
+		return myLuaManager->CreateLuaState();
 	}
 
 	std::vector<FunctionInformation> LuaInterface::GetFunctionInfo()
@@ -83,8 +73,6 @@ namespace Script
 		{
 			++LuaInterface::ourRefCount;
 
-			//assert(LuaInterface::ourInitFunction != nullptr && "Cannot create luainterface since no registerfunction is set");
-			
 			LuaInterface::ourDebugLog.open("../scripts/scriptLog.txt");
 
 			if (LuaInterface::ourPrintFunction == nullptr)

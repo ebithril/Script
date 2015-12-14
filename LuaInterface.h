@@ -3,6 +3,7 @@
 #include <functional>
 #include <fstream>
 #include <vector>
+#include <memory>
 #include "FunctionInformation.h"
 
 struct lua_State;
@@ -21,6 +22,7 @@ class LuaArguments;
 namespace Script
 {
 	class LuaManager;
+	class LuaState;
 
 	class LuaInterface
 	{
@@ -31,14 +33,10 @@ namespace Script
 		void Release();
 
 		void Update();
-		void UseFile(const std::string& aFilePath);
 		void RegisterFunction(const std::string& aName, const lua_CFunction& aFunction, const std::string& aDescription);
-		void CallFunction(const std::string& aName, int aNumberOfArgs, int aNumberOfReturns, LuaArguments& someArguments);
-
-		void CallString(const std::string& aString);
+		std::shared_ptr<LuaState> CreateLuaState();
 
 		std::vector<FunctionInformation> GetFunctionInfo();
-
 
 		static void SetPrintFunction(std::function<void(const std::string&)> aPrintFunction);
 		static void Print(const std::string& aString);
