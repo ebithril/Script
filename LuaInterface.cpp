@@ -59,8 +59,6 @@ namespace Script
 	LuaInterface::LuaInterface()
 	{
 		myLuaManager = new LuaManager();
-
-		myLuaManager->Init(ourInitFunction);
 	}
 
 	LuaInterface::~LuaInterface()
@@ -72,6 +70,8 @@ namespace Script
 	{
 		if (LuaInterface::ourRefCount == 0)
 		{
+			++LuaInterface::ourRefCount;
+
 			//assert(LuaInterface::ourInitFunction != nullptr && "Cannot create luainterface since no registerfunction is set");
 			
 			LuaInterface::ourDebugLog.open("../scripts/scriptLog.txt");
@@ -79,6 +79,8 @@ namespace Script
 			PrintLog("created system");
 
 			LuaInterface::ourInstance = new LuaInterface();
+			LuaInterface::ourInstance->myLuaManager->Init(LuaInterface::ourInitFunction);
+			--LuaInterface::ourRefCount;
 		}
 
 		++LuaInterface::ourRefCount;
