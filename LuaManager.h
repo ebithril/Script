@@ -39,11 +39,12 @@ namespace Script
 		void RegisterFunction(const char* aName, const lua_CFunction& aFunction, const char* aDescription);
 
 		void FindClosest(std::string aErrorMessage);
-
 		void ReloadState(LuaState* aState);
 
 		std::vector<FunctionInformation> GetFunctionInfo();
 
+		void RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaState>)> aFunction);
+		void RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, int scriptId);
 	private:
 		std::shared_ptr<LuaState> CreateLuaState();
 		std::string GetFileAndLine(const std::string& aLuaError);
@@ -51,6 +52,9 @@ namespace Script
 
 		LuaManager();
 		~LuaManager();
+
+		std::unordered_map<std::string, std::function<void(std::string, std::shared_ptr<LuaState>)>> myRegisterCallBackFunctions;
+
 		std::unordered_map<std::string, LuaFunction> myExposedFunctions;
 		std::ofstream myExposedFunctionsFile;
 		std::vector<std::shared_ptr<LuaState>> myStates;
