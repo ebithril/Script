@@ -10,7 +10,7 @@ namespace Script
 	LuaInterface* LuaInterface::ourInstance = nullptr;
 	int LuaInterface::ourRefCount = 0;
 	std::function<void()> LuaInterface::ourInitFunction = nullptr;
-	std::ofstream LuaInterface::ourDebugLog("../scripts/scriptLog.txt");
+	std::ofstream LuaInterface::ourDebugLog;
 	std::function<void(const std::string&)> LuaInterface::ourPrintFunction = nullptr;
 
 	void LuaInterface::Release()
@@ -55,10 +55,12 @@ namespace Script
 	LuaInterface::LuaInterface()
 	{
 		myLuaManager = new LuaManager();
+		ourDebugLog.open("/Data/Script/ScriptLog.txt", std::ios_base::out);
 	}
 
 	LuaInterface::~LuaInterface()
 	{
+		ourDebugLog.close();
 		delete myLuaManager;
 	}
 

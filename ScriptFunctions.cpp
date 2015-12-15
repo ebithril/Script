@@ -16,7 +16,10 @@ namespace Script
 
 		for (int i = 1; i <= arguments; i++)
 		{
-			string += lua_tostring(aState, i);
+			if (lua_isnil(aState, i) == 0)
+			{
+				string += lua_tostring(aState, i);
+			}
 		}
 
 		LuaInterface::Print(string);
