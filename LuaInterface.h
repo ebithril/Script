@@ -42,6 +42,8 @@ namespace Script
 		static void Print(const std::string& aString);
 
 		static std::ofstream ourDebugLog;
+		void RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaState>)> aFunction);
+		void RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, int scriptId);
 	private:
 		static std::function<void(const std::string&)> ourPrintFunction;
 		

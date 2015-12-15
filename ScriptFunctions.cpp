@@ -34,4 +34,47 @@ namespace Script
 		OutputDebugStringA(aStringToPrint.c_str());
 		LuaInterface::ourDebugLog << aStringToPrint << std::endl;
 	}
+
+	int RegisterCallback(lua_State* aState)
+	{
+		int numberOfArguments = lua_gettop(aState);
+
+		if (numberOfArguments != 3)
+		{
+			LuaInterface::Print("Registercallback only supports 3 arguments no more no less ");
+			return 0;
+		}
+
+		if (lua_isnil(aState, 1) == 1)
+		{
+			LuaInterface::Print("First argument is nil");
+			return 0;
+		}
+
+		std::string cppFunctionName = lua_tostring(aState, 1);
+	
+		if (lua_isnil(aState, 2) == 1)
+		{
+			LuaInterface::Print("First argument is nil");
+			return 0;
+		}
+
+		std::string luaFunctionName = lua_tostring(aState, 2);
+
+		if (lua_isnil(aState, 3) == 1)
+		{
+			LuaInterface::Print("First argument is nil");
+			return 0;
+		}
+
+		int scriptId = int(lua_tonumber(aState, 3));
+
+		LuaInterface* instance =  CreateLuaInterface();
+
+		instance->RegisterCallback(cppFunctionName, luaFunctionName, scriptId);
+
+		instance->Release();
+
+		return 0;
+	}
 }

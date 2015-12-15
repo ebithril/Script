@@ -29,6 +29,8 @@ namespace Script
 
 		RegisterFunction("Print", logFunction, "Print a message to the log");
 
+		RegisterFunction("RegisterCallback", Script::RegisterCallback, "Register a callback function");
+
 		if (aFunction != nullptr)
 		{
 			aFunction();
@@ -111,6 +113,7 @@ namespace Script
 
 	LuaManager::LuaManager()
 	{
+		myNextStateId = 0;
 	}
 
 	LuaManager::~LuaManager()
@@ -119,7 +122,9 @@ namespace Script
 
 	std::shared_ptr<LuaState> LuaManager::CreateLuaState()
 	{
-		std::shared_ptr<LuaState> newState(new LuaState(this));
+		std::shared_ptr<LuaState> newState(new LuaState(this, myNextStateId));
+
+		++myNextStateId;
 
 		myStates.push_back(newState);
 
@@ -183,5 +188,62 @@ namespace Script
 		}
 
 		return information;
+	}
+
+	void LuaManager::RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaState>)> aFunction)
+	{
+		myRegisterCallBackFunctions[aName] = aFunction;
+	}
+
+#undef max
+	void LuaManager::RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, int scriptId)
+	{
+		std::shared_ptr<LuaState> state = nullptr;
+		
+		for (int i = 0; i < myStates.size(); i++)
+		{
+			if (myStates[i]->GetID() == scriptId)
+			{
+				state = myStates[i];
+				break;
+			}
+		}
+
+		if (state != nullptr)
+		{
+			for (auto it = myRegisterCallBackFunctions.begin(); it != myRegisterCallBackFunctions.end(); it++)
+			{
+				if (it->first == cppFunctionName)
+				{
+					it->second(luaFunctionName, state);
+					return;
+				}
+			}
+
+			int closest = std::numeric_limits<int>::max();
+			std::string functionName = "";
+
+			for (auto it = myRegisterCallBackFunctions.begin(); it != myRegisterCallBackFunctions.end(); it++)
+			{
+				int result = levenshtein_distance(it->first, cppFunctionName);
+
+				if (result < closest)
+				{
+					closest = result;
+					functionName = it->first;
+				}
+			}
+
+			std::string errorMsg = cppFunctionName;
+			errorMsg += " doesn't exist did you mean ";
+			errorMsg += functionName;
+			errorMsg += "?";
+
+			LuaInterface::Print(errorMsg);
+		}
+		else
+		{
+			LuaInterface::Print("Invalid scriptID sent to RegisterCallback");
+		}
 	}
 }

@@ -18,8 +18,9 @@
 
 namespace Script
 {
-	LuaState::LuaState(LuaManager* aManager)
+	LuaState::LuaState(LuaManager* aManager, int aId)
 	{
+		myId = aId;
 		myManager = aManager;
 
 		myFilePath = "";
@@ -34,6 +35,11 @@ namespace Script
 
 	LuaState::~LuaState()
 	{
+	}
+
+	int LuaState::GetID() const
+	{
+		return myId;
 	}
 
 	int LuaState::GetNumberOfArguments()
