@@ -54,5 +54,6 @@ namespace Script
 		std::unordered_map<std::string, LuaFunction> myExposedFunctions;
 		std::ofstream myExposedFunctionsFile;
 		std::vector<std::shared_ptr<LuaState>> myStates;
+		int myNextStateId;
 	};
 }

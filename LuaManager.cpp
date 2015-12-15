@@ -111,6 +111,7 @@ namespace Script
 
 	LuaManager::LuaManager()
 	{
+		myNextStateId = 0;
 	}
 
 	LuaManager::~LuaManager()
@@ -119,7 +120,9 @@ namespace Script
 
 	std::shared_ptr<LuaState> LuaManager::CreateLuaState()
 	{
-		std::shared_ptr<LuaState> newState(new LuaState(this));
+		std::shared_ptr<LuaState> newState(new LuaState(this, myNextStateId));
+
+		++myNextStateId;
 
 		myStates.push_back(newState);
 

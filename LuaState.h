@@ -18,8 +18,10 @@ namespace Script
 	class LuaState
 	{
 	public:
-		LuaState(LuaManager* aManager);
+		LuaState(LuaManager* aManager, int aId);
 		~LuaState();
+
+		int GetID() const;
 
 		int GetNumberOfArguments();
 		int GetType();
@@ -38,5 +40,6 @@ namespace Script
 		lua_State* myState;
 		LuaManager* myManager;
 		bool myIsLoaded;
+		int myId;
 	};
 }
