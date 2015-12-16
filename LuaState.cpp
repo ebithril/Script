@@ -137,6 +137,26 @@ namespace Script
 		}
 	}
 
+	void LuaState::RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaState>, int)> aFunction)
+	{
+		myRegisterCallBackFunctions[aName] = aFunction;
+	}
+
+#undef max
+	bool LuaState::RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, std::shared_ptr<LuaState> aState, int aGameObjectID)
+	{
+		for (auto it = myRegisterCallBackFunctions.begin(); it != myRegisterCallBackFunctions.end(); it++)
+		{
+			if (it->first == cppFunctionName)
+			{
+				it->second(luaFunctionName, aState, aGameObjectID);
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	bool LuaState::CheckError(int aResult)
 	{
 		if (aResult != LUA_OK)

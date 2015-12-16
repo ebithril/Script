@@ -211,35 +211,38 @@ namespace Script
 
 		if (state != nullptr)
 		{
-			for (auto it = myRegisterCallBackFunctions.begin(); it != myRegisterCallBackFunctions.end(); it++)
+			if (state->RegisterCallback(cppFunctionName, luaFunctionName, state, aGameObjectID) == false)
 			{
-				if (it->first == cppFunctionName)
+				for (auto it = myRegisterCallBackFunctions.begin(); it != myRegisterCallBackFunctions.end(); it++)
 				{
-					it->second(luaFunctionName, state, aGameObjectID);
-					return;
+					if (it->first == cppFunctionName)
+					{
+						it->second(luaFunctionName, state, aGameObjectID);
+						return;
+					}
 				}
-			}
 
-			int closest = std::numeric_limits<int>::max();
-			std::string functionName = "";
+				int closest = std::numeric_limits<int>::max();
+				std::string functionName = "";
 
-			for (auto it = myRegisterCallBackFunctions.begin(); it != myRegisterCallBackFunctions.end(); it++)
-			{
-				int result = levenshtein_distance(it->first, cppFunctionName);
-
-				if (result < closest)
+				for (auto it = myRegisterCallBackFunctions.begin(); it != myRegisterCallBackFunctions.end(); it++)
 				{
-					closest = result;
-					functionName = it->first;
+					int result = levenshtein_distance(it->first, cppFunctionName);
+
+					if (result < closest)
+					{
+						closest = result;
+						functionName = it->first;
+					}
 				}
+
+				std::string errorMsg = cppFunctionName;
+				errorMsg += " doesn't exist did you mean ";
+				errorMsg += functionName;
+				errorMsg += "?";
+
+				LuaInterface::Print(errorMsg);
 			}
-
-			std::string errorMsg = cppFunctionName;
-			errorMsg += " doesn't exist did you mean ";
-			errorMsg += functionName;
-			errorMsg += "?";
-
-			LuaInterface::Print(errorMsg);
 		}
 		else
 		{
