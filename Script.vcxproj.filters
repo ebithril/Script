@@ -20,6 +20,7 @@
       <Filter>Lua\LuaArgument</Filter>
     </ClCompile>
     <ClCompile Include="LuaArguments.cpp" />
+    <ClCompile Include="LuaStateHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_watcher.h">
@@ -44,6 +45,7 @@
       <Filter>Lua\LuaArgument</Filter>
     </ClInclude>
     <ClInclude Include="LuaArguments.h" />
+    <ClInclude Include="LuaStateHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="file_watcher">

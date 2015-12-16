@@ -200,7 +200,7 @@ namespace Script
 	{
 		std::shared_ptr<LuaState> state = nullptr;
 		
-		for (int i = 0; i < myStates.size(); i++)
+		for ( unsigned int i = 0; i < myStates.size(); i++)
 		{
 			if (myStates[i]->GetID() == scriptId)
 			{

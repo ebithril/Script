@@ -89,6 +89,7 @@
     <ClCompile Include="LuaInterface.cpp" />
     <ClCompile Include="LuaManager.cpp" />
     <ClCompile Include="LuaState.cpp" />
+    <ClCompile Include="LuaStateHelper.cpp" />
     <ClCompile Include="ScriptFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +100,7 @@
     <ClInclude Include="LuaInterface.h" />
     <ClInclude Include="LuaManager.h" />
     <ClInclude Include="LuaState.h" />
+    <ClInclude Include="LuaStateHelper.h" />
     <ClInclude Include="ScriptFunctions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
