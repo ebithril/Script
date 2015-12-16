@@ -6,6 +6,9 @@
 #include <memory>
 #include "FunctionInformation.h"
 
+#define LUA_TRUE 0
+#define LUA_FALSE 1
+
 struct lua_State;
 
 namespace std
