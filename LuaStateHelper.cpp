@@ -1,7 +1,8 @@
 #include "LuaStateHelper.h"
 #include "../include/lua.hpp"
 #include "../Script/LuaInterface.h"
-#include "../Common Utilities/DL_Assert.h"
+#include <assert.h>
+
 namespace Script
 {
 	LuaStateHelper::LuaStateHelper(lua_State* aLuaState, const std::string& aFunctionName)
@@ -10,7 +11,7 @@ namespace Script
 		myFunctionName = aFunctionName;
 		if (myLuaState == nullptr)
 		{
-			DL_ASSERT("Cannot init LuaStateHelper with nullptr");
+			assert(false && "Cannot init LuaStateHelper with nullptr");
 		}
 	}
 
