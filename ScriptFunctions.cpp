@@ -36,9 +36,9 @@ namespace Script
 	{
 		int numberOfArguments = lua_gettop(aState);
 
-		if (numberOfArguments != 3)
+		if (numberOfArguments != 4)
 		{
-			LuaInterface::Print("Registercallback only supports 3 arguments no more no less ");
+			LuaInterface::Print("Registercallback only supports 4 arguments no more no less ");
 			return 0;
 		}
 
@@ -66,9 +66,11 @@ namespace Script
 
 		int scriptId = int(lua_tonumber(aState, 3));
 
+		int gameObjectID = int(lua_tonumber(aState, 4));
+
 		LuaInterface* instance =  CreateLuaInterface();
 
-		instance->RegisterCallback(cppFunctionName, luaFunctionName, scriptId);
+		instance->RegisterCallback(cppFunctionName, luaFunctionName, scriptId, gameObjectID);
 
 		instance->Release();
 

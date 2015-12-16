@@ -12,7 +12,7 @@ namespace Script
 	std::function<void()> LuaInterface::ourInitFunction = nullptr;
 	std::ofstream LuaInterface::ourDebugLog("../scripts/scriptLog.txt");
 
-	void LuaInterface::RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaState>)> aFunction)
+	void LuaInterface::RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaState>, int)> aFunction)
 	{
 		myLuaManager->RegisterAddCallBackFunction(aName, aFunction);
 	}
@@ -68,9 +68,9 @@ namespace Script
 		delete myLuaManager;
 	}
 
-	void LuaInterface::RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, int scriptId)
+	void LuaInterface::RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, int scriptId, int aGameObjectID)
 	{
-		myLuaManager->RegisterCallback(cppFunctionName, luaFunctionName, scriptId);
+		myLuaManager->RegisterCallback(cppFunctionName, luaFunctionName, scriptId, aGameObjectID);
 	}
 
 	void LuaInterface::Print(const std::string& aString)

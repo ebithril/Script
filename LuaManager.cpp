@@ -190,13 +190,13 @@ namespace Script
 		return information;
 	}
 
-	void LuaManager::RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaState>)> aFunction)
+	void LuaManager::RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaState>, int)> aFunction)
 	{
 		myRegisterCallBackFunctions[aName] = aFunction;
 	}
 
 #undef max
-	void LuaManager::RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, int scriptId)
+	void LuaManager::RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, int scriptId, int aGameObjectID)
 	{
 		std::shared_ptr<LuaState> state = nullptr;
 		
@@ -215,7 +215,7 @@ namespace Script
 			{
 				if (it->first == cppFunctionName)
 				{
-					it->second(luaFunctionName, state);
+					it->second(luaFunctionName, state, aGameObjectID);
 					return;
 				}
 			}
