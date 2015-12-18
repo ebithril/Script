@@ -25,7 +25,7 @@ namespace Script
 
 		int GetID() const;
 
-		void CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns, LuaArguments& someArguments); /* 5 max number of arguments */
+		void CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns, const LuaArguments& someArguments); /* 5 max number of arguments */
 		void RegisterFunction(const char* aName, const lua_CFunction& aFunction);
 		void UseFile(const char* aFilePath);
 		void CallString(const char* aString);

@@ -52,7 +52,7 @@ namespace Script
 		return lua_type(myState, GetNumberOfArguments());
 	}
 
-	void LuaState::CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns, LuaArguments& someArguments)
+	void LuaState::CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns, const LuaArguments& someArguments)
 	{
 		if (myIsLoaded == false)
 		{
@@ -187,7 +187,8 @@ namespace Script
 			default:
 				break;
 			}
-
+			//luaError += lua_tostring(myState, -1);
+			luaError += lua_tostring(myState, 1);
 			luaError += GetNiceErrorMessage(lua_tostring(myState, GetNumberOfArguments()));
 			luaError += '\n';
 

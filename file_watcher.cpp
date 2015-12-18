@@ -1,5 +1,6 @@
 #include "file_watcher.h"
 #include <fstream>
+#include <algorithm>
 
 namespace Script
 {
@@ -186,6 +187,8 @@ namespace Script
 
 	bool CFileWatcher::WatchFileChange(std::string aFile, callback_function_file aFunctionToCallOnChange)
 	{
+		std::replace(aFile.begin(), aFile.end(), '/', '\\'); // replace all '/' to '\\'
+
 		std::ifstream stream(aFile);
 		if (!stream.good())
 		{

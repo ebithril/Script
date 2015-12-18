@@ -16,9 +16,28 @@ namespace Script
 
 		for (int i = 1; i <= arguments; i++)
 		{
-			if (lua_isnil(aState, i) == 0)
+			int argType = lua_type(aState, i);
+
+			switch (argType)
 			{
-				string += lua_tostring(aState, i);
+			case LUA_TNIL:
+				string += "nil";
+				break;
+			case LUA_TNUMBER:
+				string += std::to_string(static_cast<double>(lua_tonumber(aState, i)));
+				break;
+			case LUA_TSTRING:
+				string += std::string(lua_tostring(aState, i));
+				break;
+			case LUA_TBOOLEAN:
+				if (lua_toboolean(aState, i) == 0)
+					string += std::string("false");
+				else
+					string += std::string("true");
+				break;
+			default:
+				string += "INVALID";
+				break;
 			}
 		}
 

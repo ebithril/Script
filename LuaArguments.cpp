@@ -6,19 +6,19 @@ LuaArguments::LuaArguments()
 {
 }
 
-LuaArguments::LuaArguments(LuaArgument aArg)
+LuaArguments::LuaArguments(const LuaArgument& aArg)
 {
 	myArguments[0] = aArg;
 }
 
-LuaArguments::LuaArguments(LuaArgument aArg1, LuaArgument aArg2)
+LuaArguments::LuaArguments(const LuaArgument& aArg1, const LuaArgument& aArg2)
 {
 	myArguments[0] = aArg1;
 	myArguments[1] = aArg2;
 
 }
 
-LuaArguments::LuaArguments(LuaArgument aArg1, LuaArgument aArg2, LuaArgument aArg3)
+LuaArguments::LuaArguments(const LuaArgument& aArg1, const LuaArgument& aArg2, const LuaArgument& aArg3)
 {
 	myArguments[0] = aArg1;
 	myArguments[1] = aArg2;
@@ -26,7 +26,7 @@ LuaArguments::LuaArguments(LuaArgument aArg1, LuaArgument aArg2, LuaArgument aAr
 
 }
 
-LuaArguments::LuaArguments(LuaArgument aArg1, LuaArgument aArg2, LuaArgument aArg3, LuaArgument aArg4)
+LuaArguments::LuaArguments(const LuaArgument& aArg1, const LuaArgument& aArg2, const LuaArgument& aArg3, const LuaArgument& aArg4)
 {
 	myArguments[0] = aArg1;
 	myArguments[1] = aArg2;
@@ -35,7 +35,7 @@ LuaArguments::LuaArguments(LuaArgument aArg1, LuaArgument aArg2, LuaArgument aAr
 
 }
 
-LuaArguments::LuaArguments(LuaArgument aArg1, LuaArgument aArg2, LuaArgument aArg3, LuaArgument aArg4, LuaArgument aArg5)
+LuaArguments::LuaArguments(const LuaArgument& aArg1, const LuaArgument& aArg2, const LuaArgument& aArg3, const LuaArgument& aArg4, const LuaArgument& aArg5)
 {
 	myArguments[0] = aArg1;
 	myArguments[1] = aArg2;
@@ -44,7 +44,7 @@ LuaArguments::LuaArguments(LuaArgument aArg1, LuaArgument aArg2, LuaArgument aAr
 	myArguments[4] = aArg5;
 }
 
-void LuaArguments::PushArguments(lua_State* aState, int aNumberOfArgs)
+void LuaArguments::PushArguments(lua_State* aState, int aNumberOfArgs) const
 {
 	if (aNumberOfArgs > 5 || aNumberOfArgs < 0)
 	{

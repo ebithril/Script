@@ -25,7 +25,7 @@ namespace Script
 	{
 		lua_CFunction logFunction = (lua_CFunction)&PrintLog;
 
-		myExposedFunctionsFile.open("../scripts/exposedfunctions.txt");
+		myExposedFunctionsFile.open("Data/Scripts/ExposedFunctions.txt");
 
 		RegisterFunction("Print", logFunction, "Print a message to the log");
 
@@ -118,6 +118,7 @@ namespace Script
 
 	LuaManager::~LuaManager()
 	{
+		myExposedFunctionsFile.close();
 	}
 
 	std::shared_ptr<LuaState> LuaManager::CreateLuaState()
@@ -138,6 +139,7 @@ namespace Script
 
 	void LuaManager::FindClosest(std::string aErrorMessage)
 	{
+		std::string orginalMessage = aErrorMessage;
 		int firstIndex = aErrorMessage.find_first_of('\'');
 		int secondIndex = aErrorMessage.find_first_of('\'', firstIndex + 1);
 
@@ -162,7 +164,9 @@ namespace Script
 
 		aErrorMessage = GetFileAndLine(aErrorMessage);
 		aErrorMessage += " \'";
-		aErrorMessage += functionBeingCalled + "\' doesn't exist did you mean \'" + example + "\'?";
+		aErrorMessage += functionBeingCalled + "\' doesn't exist did you mean \'" + example + "\'?\n";
+
+		aErrorMessage += orginalMessage;
 
 		LuaInterface::Print(aErrorMessage.c_str());
 	}

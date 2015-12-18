@@ -16,12 +16,14 @@ class LuaArgument
 public:
 	LuaArgument();
 	LuaArgument(const char* aString);
+	LuaArgument(int aNumber);
 	LuaArgument(float aNumber);
+	LuaArgument(double aNumber);
 	LuaArgument(bool aBool);
 	LuaArgument(void* aLightUserData);
 	~LuaArgument();
 
-	void PushArgument(lua_State* aState);
+	void PushArgument(lua_State* aState) const;
 private:
 	union
 	{

@@ -19,55 +19,52 @@ namespace Script
 	{
 	}
 
-	bool LuaStateHelper::GetDataAt(std::string& aString, const int anIndex, const std::string& aCustomErrorMessage)
+	void LuaStateHelper::GetDataAt(std::string& aString, const int anIndex, const std::string& aCustomErrorMessage)
 	{
-		if (lua_isstring(myLuaState, anIndex) == LUA_FALSE)
+		if (lua_isstring(myLuaState, anIndex) == false)
 		{
 			std::string errorMessage = "String argument " + std::to_string(anIndex) + " in " + myFunctionName + " is invalid.\n" + aCustomErrorMessage;
-			lua_pushstring(myLuaState, errorMessage.c_str());
-			return false;
+			ThrowError(errorMessage);
 		}
 
 		aString = lua_tostring(myLuaState, anIndex);
 
-		return true;
 	}
 
-	bool LuaStateHelper::GetDataAt(float& aFloat, const int anIndex, const std::string& aCustomErrorMessage)
+	void LuaStateHelper::GetDataAt(float& aFloat, const int anIndex, const std::string& aCustomErrorMessage)
 	{
-		if (lua_isnumber(myLuaState, anIndex) == LUA_FALSE)
+		if (lua_isnumber(myLuaState, anIndex) == false)
 		{
 			std::string errorMessage = "Number argument " + std::to_string(anIndex) + " in " + myFunctionName + " is invalid.\n" + aCustomErrorMessage;
-			lua_pushstring(myLuaState, errorMessage.c_str());
-			return false;
+			
+			ThrowError(errorMessage);
 		}
 
 		aFloat = static_cast<float>(lua_tonumber(myLuaState, anIndex));
 
-		return true;
 	}
 
-	bool LuaStateHelper::GetDataAt(int& anInt, const int anIndex, const std::string& aCustomErrorMessage)
+	void LuaStateHelper::GetDataAt(int& anInt, const int anIndex, const std::string& aCustomErrorMessage)
 	{
-		if (lua_isnumber(myLuaState, anIndex) == LUA_FALSE)
+		std::string aType = lua_typename(myLuaState, anIndex);
+
+		if (lua_isnumber(myLuaState, anIndex) == false)
 		{
 			std::string errorMessage = "Number argument " + std::to_string(anIndex) + " in " + myFunctionName + " is invalid.\n" + aCustomErrorMessage;
 			lua_pushstring(myLuaState, errorMessage.c_str());
-			return false;
+			ThrowError(errorMessage);
 		}
 
 		anInt = static_cast<int>(lua_tonumber(myLuaState, anIndex));
-
-		return true;
 	}
 
-	bool LuaStateHelper::GetDataAt(bool& aBool, const int anIndex, const std::string& aCustomErrorMessage)
+	void LuaStateHelper::GetDataAt(bool& aBool, const int anIndex, const std::string& aCustomErrorMessage)
 	{
-		if (lua_isboolean(myLuaState, anIndex) == LUA_FALSE)
+		if (lua_isboolean(myLuaState, anIndex) == false)
 		{
 			std::string errorMessage = "Boolean argument " + std::to_string(anIndex) + " in " + myFunctionName + " is invalid.\n" + aCustomErrorMessage;
 			lua_pushstring(myLuaState, errorMessage.c_str());
-			return false;
+			ThrowError(errorMessage);
 		}
 
 		int luaBool = lua_toboolean(myLuaState, anIndex);
@@ -80,8 +77,6 @@ namespace Script
 		{
 			aBool = true;
 		}
-
-		return true;
 	}
 
 	void LuaStateHelper::PushData(const std::string& aString)
@@ -97,7 +92,6 @@ namespace Script
 	void LuaStateHelper::PushData(const int& anInt)
 	{
 		lua_pushnumber(myLuaState, anInt);
-
 	}
 
 	void LuaStateHelper::PushData(const bool& aBool)
@@ -107,24 +101,22 @@ namespace Script
 
 	int LuaStateHelper::GetNumberOfArguments()
 	{
-		return lua_gettop(myLuaState);
+		int amount = lua_gettop(myLuaState);
+		return amount;
 	}
 
-	bool LuaStateHelper::CheckAmountOfArguments(const int anAmount, std::string aCustomErrorMessage)
+	void LuaStateHelper::CheckAmountOfArguments(const int anAmount, std::string aCustomErrorMessage)
 	{
 		if (GetNumberOfArguments() != anAmount)
 		{
 			std::string errorMessage = "Incorrect amount of arguments in " + myFunctionName + "\n" + aCustomErrorMessage;
-			lua_pushstring(myLuaState, errorMessage.c_str());
-			return false;
+			ThrowError(errorMessage);
 		}
-
-		return true;
 	}
 
-	int LuaStateHelper::ReturnError()
+	void LuaStateHelper::ThrowError(const std::string& anErrorText)
 	{
-		return lua_error(myLuaState);
+		luaL_error(myLuaState, anErrorText.c_str());
 	}
 
 }

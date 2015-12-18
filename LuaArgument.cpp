@@ -13,6 +13,18 @@ LuaArgument::LuaArgument(const char* aString)
 	myString = aString;
 }
 
+LuaArgument::LuaArgument(int aNumber)
+{
+	myArgumentType = eLuaArgumentType::eNUMBER;
+	myNumber = static_cast<float>(aNumber);
+}
+
+LuaArgument::LuaArgument(double aNumber)
+{
+	myArgumentType = eLuaArgumentType::eNUMBER;
+	myNumber = static_cast<float>(aNumber);
+}
+
 LuaArgument::LuaArgument(float aNumber)
 {
 	myArgumentType = eLuaArgumentType::eNUMBER;
@@ -35,7 +47,7 @@ LuaArgument::~LuaArgument()
 {
 }
 
-void LuaArgument::PushArgument(lua_State* aState)
+void LuaArgument::PushArgument(lua_State* aState) const
 {
 	switch (myArgumentType)
 	{
