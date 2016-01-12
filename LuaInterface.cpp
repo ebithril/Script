@@ -1,9 +1,12 @@
+#include "ScriptPrecompiled.h"
 #include "LuaInterface.h"
 
 #include <assert.h>
 #include "LuaManager.h"
 
 #include "ScriptFunctions.h"
+#include "VisualScriptFunctions.h"
+#include "VisualScriptManager.h"
 
 namespace Script
 {
@@ -13,9 +16,10 @@ namespace Script
 	std::function<void(const std::string&)> LuaInterface::ourPrintFunction = nullptr;
 	std::ofstream LuaInterface::ourDebugLog;
 
-	void LuaInterface::RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaState>, int)> aFunction)
+	void LuaInterface::RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaBaseScript>, long long)> aFunction)
 	{
 		myLuaManager->RegisterAddCallBackFunction(aName, aFunction);
+		myVisualScriptManager->AddCallbackFunction(aName, aFunction);
 	}
 
 	void LuaInterface::Release()
@@ -40,6 +44,7 @@ namespace Script
 	void LuaInterface::RegisterFunction(const std::string& aName, const lua_CFunction& aFunction, const std::string& aDescription)
 	{
 		myLuaManager->RegisterFunction(aName.c_str(), aFunction, aDescription.c_str());
+		myVisualScriptManager->RegisterFunction(aName.c_str(), aFunction);
 	}
 
 	std::shared_ptr<LuaState> LuaInterface::CreateLuaState()
@@ -60,6 +65,15 @@ namespace Script
 	LuaInterface::LuaInterface()
 	{
 		myLuaManager = new LuaManager();
+		myVisualScriptManager = new VisualScriptManager();
+		myVisualScriptManager->LoadAllNodes();
+
+		myVisualScriptManager->RegisterFunction("ExecutePin", Script::ExecutePin);
+		myVisualScriptManager->RegisterFunction("GetPinData", Script::GetPinData);
+
+		myVisualScriptManager->RegisterFunction("Print", Script::PrintLog);
+		myVisualScriptManager->RegisterFunction("RegisterCallback", Script::RegisterCallback);
+
 		ourDebugLog.open("/Data/Script/ScriptLog.txt", std::ios_base::out);
 	}
 
@@ -69,14 +83,36 @@ namespace Script
 		delete myLuaManager;
 	}
 
-	void LuaInterface::RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, int scriptId, int aGameObjectID)
+	void LuaInterface::RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, int scriptId, long long aGameObjectID)
 	{
-		myLuaManager->RegisterCallback(cppFunctionName, luaFunctionName, scriptId, aGameObjectID);
+		if (scriptId % 2 == 0)
+		{
+			myLuaManager->RegisterCallback(cppFunctionName, luaFunctionName, scriptId, aGameObjectID);
+		}
+		else
+		{
+			myVisualScriptManager->RegisterCallback(cppFunctionName, luaFunctionName, scriptId, aGameObjectID);
+		}
+	}
+
+	std::shared_ptr<VisualScript> LuaInterface::LoadVisualScript(const std::string& aFileName)
+	{
+		return myVisualScriptManager->LoadVisualScript(aFileName);
 	}
 
 	void LuaInterface::Print(const std::string& aString)
 	{
 		ourPrintFunction(aString);
+	}
+
+	void LuaInterface::ExecutePin(const std::string& pinName, long long callerID, int scriptID)
+	{
+		myVisualScriptManager->ExecutePin(pinName, callerID, scriptID);
+	}
+
+	void LuaInterface::GetPinData(const std::string& aPinName, long long aCallerID, int aScriptID, lua_State* aState)
+	{
+		myVisualScriptManager->GetPinData(aPinName, aCallerID, aScriptID, aState);
 	}
 
 	LuaInterface* CreateLuaInterface()

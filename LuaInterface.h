@@ -26,6 +26,9 @@ namespace Script
 {
 	class LuaManager;
 	class LuaState;
+	class VisualScriptManager;
+	class VisualScript;
+	class LuaBaseScript;
 
 	class LuaInterface
 	{
@@ -45,17 +48,22 @@ namespace Script
 		static void Print(const std::string& aString);
 
 		static std::ofstream ourDebugLog;
-		void RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaState>, int)> aFunction);
+		void RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaBaseScript>, long long)> aFunction);
 
 		//Used internally do not abuse!
-		void RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, int scriptId, int aGameObjectID);
+		void RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, int scriptId, long long aGameObjectID);
 
+		std::shared_ptr<VisualScript> LoadVisualScript(const std::string& aFileName);
+
+		void ExecutePin(const std::string&, long long callerID, int scriptID);
+		void GetPinData(const std::string& aPinName, long long aCallerID, int aScriptID, lua_State* aState);
 	private:
 		static std::function<void(const std::string&)> ourPrintFunction;
 		
 		LuaInterface();
 		~LuaInterface();
 		LuaManager* myLuaManager;
+		VisualScriptManager* myVisualScriptManager;
 
 		static LuaInterface* ourInstance;
 		static int ourRefCount;

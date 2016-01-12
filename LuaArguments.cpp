@@ -1,3 +1,4 @@
+#include "ScriptPrecompiled.h"
 #include "LuaArguments.h"
 
 #include <assert.h>
@@ -55,6 +56,11 @@ void LuaArguments::PushArguments(lua_State* aState, int aNumberOfArgs) const
 	{
 		myArguments[i].PushArgument(aState);
 	}
+}
+
+const LuaArgument& LuaArguments::GetArgumentFromIndex(short aIndex) const
+{
+	return myArguments[aIndex];
 }
 
 LuaArguments::~LuaArguments()

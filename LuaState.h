@@ -7,6 +7,8 @@
 #include <vector>
 #include <functional>
 
+#include "LuaBaseScript.h"
+
 #include "FunctionInformation.h"
 
 struct lua_State;
@@ -17,7 +19,8 @@ class LuaArguments;
 namespace Script
 {
 	class LuaManager;
-	class LuaState
+
+	class LuaState : public LuaBaseScript
 	{
 	public:
 		LuaState(LuaManager* aManager, int aId);
@@ -25,12 +28,12 @@ namespace Script
 
 		int GetID() const;
 
-		void CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns, const LuaArguments& someArguments); /* 5 max number of arguments */
+		void CallFunction(const char* aName, int aNumberOfArgs, int aNumberOfReturns, const LuaArguments& someArguments) override; /* 5 max number of arguments */
 		void RegisterFunction(const char* aName, const lua_CFunction& aFunction);
 		void UseFile(const char* aFilePath);
 		void CallString(const char* aString);
-		void RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaState>, int)> aFunction);
-		bool RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, std::shared_ptr<LuaState> aState, int aGameObjectID);
+		void RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaBaseScript>, long long)> aFunction);
+		bool RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, std::shared_ptr<LuaState> aState, long long aGameObjectID);
 	private:
 		int GetNumberOfArguments();
 		int GetType();
@@ -42,7 +45,7 @@ namespace Script
 
 		void Reload();
 
-		std::unordered_map<std::string, std::function<void(std::string, std::shared_ptr<LuaState>, int)>> myRegisterCallBackFunctions;
+		std::unordered_map<std::string, std::function<void(std::string, std::shared_ptr<LuaBaseScript>, long long)>> myRegisterCallBackFunctions;
 
 		std::string myFilePath;
 		lua_State* myState;

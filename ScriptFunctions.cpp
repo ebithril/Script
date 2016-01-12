@@ -1,10 +1,12 @@
+#include "ScriptPrecompiled.h"
 #include "ScriptFunctions.h"
 
+#include "LuaInterface.h"
 #include <lua.hpp>
 #include <Windows.h>
 #include <string>
 #include <iostream>
-#include "LuaInterface.h"
+#include <filesystem>
 
 namespace Script
 {
@@ -88,7 +90,7 @@ namespace Script
 
 		int scriptId = int(lua_tonumber(aState, 3));
 
-		int gameObjectID = int(lua_tonumber(aState, 4));
+		long long gameObjectID = std::stoll(lua_tostring(aState, 4));
 
 		LuaInterface* instance =  CreateLuaInterface();
 
@@ -97,5 +99,24 @@ namespace Script
 		instance->Release();
 
 		return 0;
+	}
+
+	std::vector<std::string> GetFilesWithExtension(const std::string& aDirectory, const std::string& anExtension)
+	{
+		std::vector<std::string> myfiles(4);
+
+		for (std::tr2::sys::recursive_directory_iterator i(aDirectory.c_str()), end; i != end; ++i)
+		{
+			if (!is_directory(i->path()))
+			{
+				if (strstr(i->path().filename().c_str(), anExtension.c_str()))
+				{
+					myfiles.push_back(i->path().relative_path());
+				}
+			}
+		}
+
+
+		return myfiles;
 	}
 }

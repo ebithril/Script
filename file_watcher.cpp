@@ -1,3 +1,4 @@
+#include "ScriptPrecompiled.h"
 #include "file_watcher.h"
 #include <fstream>
 #include <algorithm>

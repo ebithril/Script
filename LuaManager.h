@@ -27,6 +27,7 @@ namespace Script
 {
 	class LuaInterface;
 	class LuaState;
+	class LuaBaseScript;
 
 	class LuaManager
 	{
@@ -43,8 +44,8 @@ namespace Script
 
 		std::vector<FunctionInformation> GetFunctionInfo();
 
-		void RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaState>, int)> aFunction);
-		void RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, int scriptId, int aGameObjectID);
+		void RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaBaseScript>, long long)> aFunction);
+		void RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, int scriptId, long long aGameObjectID);
 	private:
 		std::shared_ptr<LuaState> CreateLuaState();
 		std::string GetFileAndLine(const std::string& aLuaError);
@@ -53,7 +54,7 @@ namespace Script
 		LuaManager();
 		~LuaManager();
 
-		std::unordered_map<std::string, std::function<void(std::string, std::shared_ptr<LuaState>, int)>> myRegisterCallBackFunctions;
+		std::unordered_map<std::string, std::function<void(std::string, std::shared_ptr<LuaBaseScript>, long long)>> myRegisterCallBackFunctions;
 
 		std::unordered_map<std::string, LuaFunction> myExposedFunctions;
 		std::ofstream myExposedFunctionsFile;

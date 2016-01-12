@@ -1,3 +1,4 @@
+#include "ScriptPrecompiled.h"
 #include "LuaState.h"
 
 #include <Windows.h>
@@ -137,13 +138,13 @@ namespace Script
 		}
 	}
 
-	void LuaState::RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaState>, int)> aFunction)
+	void LuaState::RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaBaseScript>, long long)> aFunction)
 	{
 		myRegisterCallBackFunctions[aName] = aFunction;
 	}
 
 #undef max
-	bool LuaState::RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, std::shared_ptr<LuaState> aState, int aGameObjectID)
+	bool LuaState::RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, std::shared_ptr<LuaState> aState, long long aGameObjectID)
 	{
 		for (auto it = myRegisterCallBackFunctions.begin(); it != myRegisterCallBackFunctions.end(); it++)
 		{

@@ -52,11 +52,14 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ScriptPrecompiled.h</PrecompiledHeaderFile>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -68,12 +71,15 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ScriptPrecompiled.h</PrecompiledHeaderFile>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -89,22 +95,52 @@
     <ClCompile Include="file_watcher.cpp" />
     <ClCompile Include="LuaArgument.cpp" />
     <ClCompile Include="LuaArguments.cpp" />
+    <ClCompile Include="LuaBaseScript.cpp" />
     <ClCompile Include="LuaInterface.cpp" />
     <ClCompile Include="LuaManager.cpp" />
     <ClCompile Include="LuaState.cpp" />
     <ClCompile Include="LuaStateHelper.cpp" />
     <ClCompile Include="ScriptFunctions.cpp" />
+    <ClCompile Include="ScriptPrecompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <MultiProcessorCompilation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</MultiProcessorCompilation>
+      <MultiProcessorCompilation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</MultiProcessorCompilation>
+    </ClCompile>
+    <ClCompile Include="tinyxml2.cpp" />
+    <ClCompile Include="VisualScript.cpp" />
+    <ClCompile Include="VisualScriptFunctions.cpp" />
+    <ClCompile Include="VisualScriptManager.cpp" />
+    <ClCompile Include="VisualScriptNode.cpp" />
+    <ClCompile Include="VisualScriptNodeInstance.cpp" />
+    <ClCompile Include="VisualScriptPin.cpp" />
+    <ClCompile Include="VisualScriptPinInstance.cpp" />
+    <ClCompile Include="VisualScriptVariable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_watcher.h" />
     <ClInclude Include="FunctionInformation.h" />
     <ClInclude Include="LuaArgument.h" />
     <ClInclude Include="LuaArguments.h" />
+    <ClInclude Include="LuaBaseScript.h" />
     <ClInclude Include="LuaInterface.h" />
     <ClInclude Include="LuaManager.h" />
     <ClInclude Include="LuaState.h" />
     <ClInclude Include="LuaStateHelper.h" />
     <ClInclude Include="ScriptFunctions.h" />
+    <ClInclude Include="ScriptPrecompiled.h" />
+    <ClInclude Include="tinyxml2.h" />
+    <ClInclude Include="VisualScript.h" />
+    <ClInclude Include="VisualScriptFunctions.h" />
+    <ClInclude Include="VisualScriptingPinConnection.h" />
+    <ClInclude Include="VisualScriptManager.h" />
+    <ClInclude Include="VisualScriptNode.h" />
+    <ClInclude Include="VisualScriptNodeInstance.h" />
+    <ClInclude Include="VisualScriptPinType.h" />
+    <ClInclude Include="VisualScriptPin.h" />
+    <ClInclude Include="VisualScriptPinInstance.h" />
+    <ClInclude Include="VisualScriptVariableTypes.h" />
+    <ClInclude Include="VisualScriptVariable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

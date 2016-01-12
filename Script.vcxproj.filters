@@ -2,71 +2,217 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="file_watcher.cpp">
-      <Filter>file_watcher</Filter>
+      <Filter>Misc\file_watcher</Filter>
     </ClCompile>
     <ClCompile Include="LuaInterface.cpp">
       <Filter>Lua\LuaInterface</Filter>
     </ClCompile>
     <ClCompile Include="LuaManager.cpp">
-      <Filter>Lua\LualManager</Filter>
+      <Filter>Lua\PureLua\LualManager</Filter>
     </ClCompile>
     <ClCompile Include="LuaState.cpp">
-      <Filter>Lua\LuaState</Filter>
+      <Filter>Lua\PureLua\LuaState</Filter>
     </ClCompile>
     <ClCompile Include="ScriptFunctions.cpp">
-      <Filter>ScriptFunctions</Filter>
+      <Filter>Lua\ScriptFunctions</Filter>
     </ClCompile>
     <ClCompile Include="LuaArgument.cpp">
-      <Filter>Lua\LuaArgument</Filter>
+      <Filter>Lua\Arguments\Argument</Filter>
     </ClCompile>
-    <ClCompile Include="LuaArguments.cpp" />
-    <ClCompile Include="LuaStateHelper.cpp" />
+    <ClCompile Include="tinyxml2.cpp">
+      <Filter>Misc\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualScript.cpp">
+      <Filter>Lua\Visual\Instance\VisualScript</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualScriptNode.cpp">
+      <Filter>Lua\Visual\Script\VisualScriptNode</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualScriptNodeInstance.cpp">
+      <Filter>Lua\Visual\Instance\VisualScriptNodeInstance</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualScriptPin.cpp">
+      <Filter>Lua\Visual\Script\VisualScriptPin</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualScriptVariable.cpp">
+      <Filter>Lua\Visual\Instance\VisualScriptVariable</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualScriptPinInstance.cpp">
+      <Filter>Lua\Visual\Instance\VisualScriptPinInstance</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptPrecompiled.cpp">
+      <Filter>Misc\Precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualScriptManager.cpp">
+      <Filter>Lua\Visual\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualScriptFunctions.cpp">
+      <Filter>Lua\Visual\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBaseScript.cpp">
+      <Filter>Lua\BaseScript</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaStateHelper.cpp">
+      <Filter>Lua\StateHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaArguments.cpp">
+      <Filter>Lua\Arguments\Arguments</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_watcher.h">
-      <Filter>file_watcher</Filter>
+      <Filter>Misc\file_watcher</Filter>
     </ClInclude>
     <ClInclude Include="LuaInterface.h">
       <Filter>Lua\LuaInterface</Filter>
     </ClInclude>
     <ClInclude Include="LuaManager.h">
-      <Filter>Lua\LualManager</Filter>
+      <Filter>Lua\PureLua\LualManager</Filter>
     </ClInclude>
     <ClInclude Include="LuaState.h">
-      <Filter>Lua\LuaState</Filter>
+      <Filter>Lua\PureLua\LuaState</Filter>
     </ClInclude>
     <ClInclude Include="ScriptFunctions.h">
-      <Filter>ScriptFunctions</Filter>
+      <Filter>Lua\ScriptFunctions</Filter>
     </ClInclude>
     <ClInclude Include="FunctionInformation.h">
       <Filter>Lua</Filter>
     </ClInclude>
     <ClInclude Include="LuaArgument.h">
-      <Filter>Lua\LuaArgument</Filter>
+      <Filter>Lua\Arguments\Argument</Filter>
     </ClInclude>
-    <ClInclude Include="LuaArguments.h" />
-    <ClInclude Include="LuaStateHelper.h" />
+    <ClInclude Include="tinyxml2.h">
+      <Filter>Misc\TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualScript.h">
+      <Filter>Lua\Visual\Instance\VisualScript</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualScriptNode.h">
+      <Filter>Lua\Visual\Script\VisualScriptNode</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualScriptNodeInstance.h">
+      <Filter>Lua\Visual\Instance\VisualScriptNodeInstance</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualScriptPin.h">
+      <Filter>Lua\Visual\Script\VisualScriptPin</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualScriptVariable.h">
+      <Filter>Lua\Visual\Instance\VisualScriptVariable</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualScriptPinInstance.h">
+      <Filter>Lua\Visual\Instance\VisualScriptPinInstance</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualScriptVariableTypes.h">
+      <Filter>Lua\Visual\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualScriptPinType.h">
+      <Filter>Lua\Visual\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualScriptingPinConnection.h">
+      <Filter>Lua\Visual\Structs</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptPrecompiled.h">
+      <Filter>Misc\Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualScriptManager.h">
+      <Filter>Lua\Visual\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualScriptFunctions.h">
+      <Filter>Lua\Visual\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBaseScript.h">
+      <Filter>Lua\BaseScript</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaStateHelper.h">
+      <Filter>Lua\StateHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaArguments.h">
+      <Filter>Lua\Arguments\Arguments</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="file_watcher">
-      <UniqueIdentifier>{36808552-5e30-4318-be38-eac609dfaad6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ScriptFunctions">
-      <UniqueIdentifier>{b3506c45-862d-4480-bfa8-3ce88119bdd2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Lua">
       <UniqueIdentifier>{7fad3cb6-5b39-40db-855b-483c0abb7492}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lua\LuaState">
-      <UniqueIdentifier>{eadd36d6-e197-44bd-9d55-8bf15ca2f17a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lua\LualManager">
-      <UniqueIdentifier>{5d2d8a70-3660-401a-beda-524231c0529d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Lua\LuaInterface">
       <UniqueIdentifier>{577a3a78-f371-47e1-b377-b86b55d99c15}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Lua\LuaArgument">
+    <Filter Include="Misc">
+      <UniqueIdentifier>{813a45b6-51ed-46c9-96b0-87a9b3fd9ec7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc\TinyXML">
+      <UniqueIdentifier>{0d2436d3-0701-4fc1-8561-37a43aeda59f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc\file_watcher">
+      <UniqueIdentifier>{36808552-5e30-4318-be38-eac609dfaad6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc\Precompiled">
+      <UniqueIdentifier>{aac0bcc2-79a4-4405-8e42-0741bde8afee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\BaseScript">
+      <UniqueIdentifier>{907a316e-7c8f-485f-aa7f-0bc0d69f8dae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\PureLua">
+      <UniqueIdentifier>{700d1907-5a17-4d3e-891b-4faced1475ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\PureLua\LuaState">
+      <UniqueIdentifier>{eadd36d6-e197-44bd-9d55-8bf15ca2f17a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\PureLua\LualManager">
+      <UniqueIdentifier>{5d2d8a70-3660-401a-beda-524231c0529d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Visual">
+      <UniqueIdentifier>{9b03ea8b-84c8-4cb1-b7b2-af40e256c8b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Visual\Enums">
+      <UniqueIdentifier>{23dd2fa8-b24f-4d85-bf8b-5dc22a7237e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Visual\Instance">
+      <UniqueIdentifier>{33421959-969e-49ad-a51a-d5f861de6024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Visual\Instance\VisualScript">
+      <UniqueIdentifier>{7b95c3d1-f256-4f17-aefd-e81c419a5ab2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Visual\Instance\VisualScriptNodeInstance">
+      <UniqueIdentifier>{32d9a920-625d-4ccf-b387-a41be23e2307}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Visual\Instance\VisualScriptPinInstance">
+      <UniqueIdentifier>{e6a06cde-7f0e-4bfe-a784-ae870b614fb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Visual\Instance\VisualScriptVariable">
+      <UniqueIdentifier>{ea222557-e9ad-44e8-a33e-69a48d3d0d18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Visual\Manager">
+      <UniqueIdentifier>{cb4dd558-78be-406e-a269-8b7f8bc92193}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Visual\Functions">
+      <UniqueIdentifier>{c45c22f7-21e8-4377-8ba6-f5b545542943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Visual\Script">
+      <UniqueIdentifier>{f39bbbcd-2ca9-48b9-8076-faec6e1deeb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Visual\Script\VisualScriptNode">
+      <UniqueIdentifier>{17ec7dda-7450-4ca5-b554-24ab7f0ca016}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Visual\Script\VisualScriptPin">
+      <UniqueIdentifier>{b394df6a-dd59-46de-9b66-fa96d9556dcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Visual\Structs">
+      <UniqueIdentifier>{9faa8327-f4ab-4e87-be1d-6d2d21040c3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\ScriptFunctions">
+      <UniqueIdentifier>{b3506c45-862d-4480-bfa8-3ce88119bdd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\StateHelper">
+      <UniqueIdentifier>{73e6b4fa-9903-4923-816e-dde6e154c79f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Arguments">
+      <UniqueIdentifier>{2434308a-375d-44b5-9d2a-38d1f916850d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Arguments\Arguments">
+      <UniqueIdentifier>{46be6b4b-ddcc-4d48-85e7-4335b7ebcb59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua\Arguments\Argument">
       <UniqueIdentifier>{92d14ca8-228b-4a40-b335-676ebd523274}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

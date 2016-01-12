@@ -1,3 +1,4 @@
+#include "ScriptPrecompiled.h"
 #include "LuaManager.h"
 
 #include "LuaState.h"
@@ -125,7 +126,7 @@ namespace Script
 	{
 		std::shared_ptr<LuaState> newState(new LuaState(this, myNextStateId));
 
-		++myNextStateId;
+		myNextStateId += 2;
 
 		myStates.push_back(newState);
 
@@ -194,13 +195,13 @@ namespace Script
 		return information;
 	}
 
-	void LuaManager::RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaState>, int)> aFunction)
+	void LuaManager::RegisterAddCallBackFunction(const std::string& aName, std::function<void(std::string, std::shared_ptr<LuaBaseScript>, long long)> aFunction)
 	{
 		myRegisterCallBackFunctions[aName] = aFunction;
 	}
 
 #undef max
-	void LuaManager::RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, int scriptId, int aGameObjectID)
+	void LuaManager::RegisterCallback(const std::string& cppFunctionName, const std::string& luaFunctionName, int scriptId, long long aGameObjectID)
 	{
 		std::shared_ptr<LuaState> state = nullptr;
 		

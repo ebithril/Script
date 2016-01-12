@@ -1,3 +1,4 @@
+#include "ScriptPrecompiled.h"
 #include "LuaArgument.h"
 
 #include "../include/lua.hpp"
@@ -16,19 +17,19 @@ LuaArgument::LuaArgument(const char* aString)
 LuaArgument::LuaArgument(int aNumber)
 {
 	myArgumentType = eLuaArgumentType::eNUMBER;
-	myNumber = static_cast<float>(aNumber);
+	myNumber = static_cast<double>(aNumber);
 }
 
 LuaArgument::LuaArgument(double aNumber)
 {
 	myArgumentType = eLuaArgumentType::eNUMBER;
-	myNumber = static_cast<float>(aNumber);
+	myNumber = aNumber;
 }
 
 LuaArgument::LuaArgument(float aNumber)
 {
 	myArgumentType = eLuaArgumentType::eNUMBER;
-	myNumber = aNumber;
+	myNumber = static_cast<double>(aNumber);
 }
 
 LuaArgument::LuaArgument(bool aBool)
@@ -69,4 +70,14 @@ void LuaArgument::PushArgument(lua_State* aState) const
 	default:
 		break;
 	}
+}
+
+double LuaArgument::GetAsNumber() const
+{
+	return myNumber;
+}
+
+const char* LuaArgument::GetAsString() const
+{
+	return myString;
 }

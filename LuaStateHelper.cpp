@@ -1,3 +1,4 @@
+#include "ScriptPrecompiled.h"
 #include "LuaStateHelper.h"
 #include "../include/lua.hpp"
 #include "../Script/LuaInterface.h"

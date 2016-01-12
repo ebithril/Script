@@ -24,13 +24,17 @@ public:
 	~LuaArgument();
 
 	void PushArgument(lua_State* aState) const;
+
+	double GetAsNumber() const;
+	const char* GetAsString() const;
 private:
 	union
 	{
-		float myNumber;
+		double myNumber;
 		bool myBool;
 		void* myLightUserData;
 		const char* myString;
 	};
+
 	eLuaArgumentType myArgumentType;
 };

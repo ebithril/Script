@@ -16,6 +16,8 @@ public:
 
 	void PushArguments(lua_State* aState, int aNumberOfArgs) const;
 
+	const LuaArgument& GetArgumentFromIndex(short aIndex) const;
+
 	~LuaArguments();
 
 private:
